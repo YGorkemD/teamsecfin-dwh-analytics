@@ -1,7 +1,7 @@
 # 📊 Teamsecfin DWH & Analytics Platform
 
 > **Enterprise-Grade Data Warehouse, ETL Pipeline, and Analytics Gateway** designed with a strict focus on Zero Data Loss, Row-Level Security (RLS), and High-Performance OLAP processing.
-
+```text
 ========================================================================================
                    TEAMSECFIN DWH & ANALYTICS - ENTERPRISE ARCHITECTURE
 ========================================================================================
@@ -41,6 +41,7 @@
 │  ► Strict Schema Validation (Pydantic Contracts)  ──── (If Invalid) ───> To DLQ      │
 │  ► IQR Statistical Profiling (Anomaly Detection)  ──── (Metrics) ──────> To Reports  │
 └──────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ## 📌 Executive Summary
 
@@ -139,6 +140,8 @@ The system automatically bootstraps operational schemas and seeds the following 
 
 Engineered for CI/CD pipelines, the project boasts an **86%+ Test Coverage** across all business logic, ETL transformations, and security layers. Tests utilize zero-dependency mocking (`unittest.mock.patch`) to ensure database isolation.
 
+**Coverage Report:**
+```text
 Name                    Stmts   Miss  Cover
 -------------------------------------------
 backend/database.py        20      0   100%
@@ -151,7 +154,8 @@ etl/data_analysis.py       61     10    84%
 etl/etl_pipeline.py       166     21    87%
 -------------------------------------------
 TOTAL                     440     61    86%
-
+================ 31 passed, 1 warning in 4.87s ================
+```
 To run the Enterprise Test Suite:
 
 ```bash
