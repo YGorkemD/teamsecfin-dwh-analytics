@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: dwh_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: ops_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: dwh_clickhouse
+    environment:
+      CLICKHOUSE_USER: admin
+      CLICKHOUSE_PASSWORD: adminpassword
+      CLICKHOUSE_DB: analytics_db
+    ports:
+      - "8123:8123" 
+      - "9000:9000" 
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    restart: always
+
+  api:
+    build: 
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: dwh_api
+    environment:
+      - PYTHONPATH=.
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - clickhouse
+    restart: always
+
+  web:
+    build: 
+      context: ./frontend
+    container_name: dwh_web
+    ports:
+      - "5173:5173"  # React (Vite) default port
+    volumes:
+      
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    restart: always
+
+volumes:
+  postgres_data:
+  clickhouse_data:
