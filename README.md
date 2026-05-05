@@ -67,34 +67,35 @@ The system features a robust Python-based ETL pipeline that ingests raw financia
 ```text
 teamsecfin_dwh_fastapi/
 │
-├── docker-compose.yml          # Container Orkestrasyonu (FastAPI, React, ClickHouse, Postgres)
-├── README.md                   # Proje dokümantasyonu (Şu an okuduğunuz dosya)
+├── docker-compose.yml          # Container orchestration (FastAPI, React, ClickHouse, Postgres)
+├── README.md                   # Project documentation (This file)
 │
-├── backend/                    # FastAPI Uygulaması (API Gateway & OLTP Logic)
-│   ├── main.py                 # FastAPI ana uygulama çatısı ve Endpoint yönlendirmeleri
-│   ├── database.py             # PostgreSQL ve ClickHouse (SQLAlchemy) bağlantı motorları
-│   ├── models.py               # PostgreSQL (OLTP) RBAC, User ve Session modelleri
-│   ├── dwh_models.py           # ClickHouse (OLAP) Şema tanımlamaları
-│   ├── middleware.py           # In-Memory Rate Limiter (DDoS kalkanı) ve RBAC kontrolü
-│   └── security.py             # JWT token üretimi, Bcrypt şifreleme ve Auth servisleri
+├── backend/                    # FastAPI Application (API Gateway & Business Logic)
+│   ├── main.py                 # FastAPI application instance and routing
+│   ├── database.py             # PostgreSQL and ClickHouse SQLAlchemy connections
+│   ├── models.py               # PostgreSQL (OLTP) User, Role, and Session models
+│   ├── dwh_models.py           # ClickHouse (OLAP) schema definitions
+│   ├── middleware.py           # In-Memory Rate Limiter (DDoS shield) & RBAC middleware
+│   └── security.py             # JWT generation, Bcrypt hashing, and authentication services
 │
-├── etl/                        # Veri Mühendisliği & ETL Boru Hattı
-│   ├── etl_pipeline.py         # Chunk bazlı veri okuma, Pydantic Data Contracts ve DLQ yönlendirmesi
-│   └── data_analysis.py        # IQR (Interquartile Range) Anomali Tespit Algoritması
+├── etl/                        # Data Engineering & ETL Pipeline
+│   ├── etl_pipeline.py         # Chunk-based reading, Pydantic Data Contracts, and DLQ routing
+│   ├── data_analysis.py        # IQR Anomaly Detection Algorithm and DWH persistence
+│   └── seed_data.py            # Synthetic data generation engine for ~5M records
 │
-├── data/                       # Ham (Raw) Veri Setleri
-│   ├── large_dataset.csv       # E-Ticaret İşlemleri
-│   ├── retail_credit.csv       # Bireysel Kredi Verileri
-│   └── commercial_credit.csv   # Ticari Kredi Verileri
+├── data/                       # Raw Data Sets
+│   ├── large_dataset.csv       # E-Commerce Transactions (Generated)
+│   ├── retail_credit.csv       # Retail Credit Data
+│   └── commercial_credit.csv   # Commercial Credit Data
 │
-└── frontend/                   # React 18 + Vite Arayüzü
+└── frontend/                   # React 18 + Vite Dashboard
     ├── src/
-    │   ├── App.jsx             # Dinamik UI, Recharts entegrasyonu ve Token yönetimi
-    │   ├── main.jsx            # React root render
-    │   └── index.css           # Tailwind CSS direktifleri
-    ├── package.json            # Bağımlılıklar (Recharts, Lucide-react vb.)
-    ├── tailwind.config.js      # UI/UX Tasarım sistemi konfigürasyonu
-    └── vite.config.js          # Vite build ayarları
+    │   ├── App.jsx             # React UI, Recharts integration, and dynamic RBAC token handling
+    │   ├── main.jsx            # React root component
+    │   └── index.css           # Tailwind CSS directives
+    ├── package.json            # Dependencies (Recharts, Lucide-react, etc.)
+    ├── tailwind.config.js      # Tailwind UI/UX configuration
+    └── vite.config.js          # Vite build configurations
 ```
 
 ## ✨ Enterprise Features
