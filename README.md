@@ -171,4 +171,4 @@ docker exec -it dwh_api pytest -v --cov=backend --cov=etl
 **Yavuz Görkem Deniz** – AI Engineer & Data Analyst
 **Contact info :**     - gorkeemdeniz@outlook.com
 
-*Driven by a passion for scalable AI agents, agentic workflows, and robust data warehouse architectures. Designed this platform to demonstrate the seamless integration of Data Engineering, Backend Security, and Frontend UX.*
+
