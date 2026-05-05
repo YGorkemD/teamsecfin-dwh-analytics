@@ -62,6 +62,41 @@ The system features a robust Python-based ETL pipeline that ingests raw financia
 
 ---
 
+## 📂 Enterprise Directory Structure
+
+```text
+teamsecfin_dwh_fastapi/
+│
+├── docker-compose.yml          # Container Orkestrasyonu (FastAPI, React, ClickHouse, Postgres)
+├── README.md                   # Proje dokümantasyonu (Şu an okuduğunuz dosya)
+│
+├── backend/                    # FastAPI Uygulaması (API Gateway & OLTP Logic)
+│   ├── main.py                 # FastAPI ana uygulama çatısı ve Endpoint yönlendirmeleri
+│   ├── database.py             # PostgreSQL ve ClickHouse (SQLAlchemy) bağlantı motorları
+│   ├── models.py               # PostgreSQL (OLTP) RBAC, User ve Session modelleri
+│   ├── dwh_models.py           # ClickHouse (OLAP) Şema tanımlamaları
+│   ├── middleware.py           # In-Memory Rate Limiter (DDoS kalkanı) ve RBAC kontrolü
+│   └── security.py             # JWT token üretimi, Bcrypt şifreleme ve Auth servisleri
+│
+├── etl/                        # Veri Mühendisliği & ETL Boru Hattı
+│   ├── etl_pipeline.py         # Chunk bazlı veri okuma, Pydantic Data Contracts ve DLQ yönlendirmesi
+│   └── data_analysis.py        # IQR (Interquartile Range) Anomali Tespit Algoritması
+│
+├── data/                       # Ham (Raw) Veri Setleri
+│   ├── large_dataset.csv       # E-Ticaret İşlemleri
+│   ├── retail_credit.csv       # Bireysel Kredi Verileri
+│   └── commercial_credit.csv   # Ticari Kredi Verileri
+│
+└── frontend/                   # React 18 + Vite Arayüzü
+    ├── src/
+    │   ├── App.jsx             # Dinamik UI, Recharts entegrasyonu ve Token yönetimi
+    │   ├── main.jsx            # React root render
+    │   └── index.css           # Tailwind CSS direktifleri
+    ├── package.json            # Bağımlılıklar (Recharts, Lucide-react vb.)
+    ├── tailwind.config.js      # UI/UX Tasarım sistemi konfigürasyonu
+    └── vite.config.js          # Vite build ayarları
+```
+
 ## ✨ Enterprise Features
 
 ### 🔐 1. Dynamic Row-Level Security (RLS)
